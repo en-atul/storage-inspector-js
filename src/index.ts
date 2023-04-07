@@ -149,7 +149,7 @@ const clearSiteData = (indexDBName?: string, reload?: boolean) => {
  *
  * @description get website browser storage `Usage` & `Quota`,
  */
-const getStorageUsageAndQuota = () => {
+const getStorageUsageAndQuota = async () => {
   let storageInfo: STORAGE_INFO = {
     raw: {
       usage: 0,
@@ -163,16 +163,15 @@ const getStorageUsageAndQuota = () => {
   };
 
   if ("storage" in navigator && "estimate" in navigator.storage) {
-    navigator.storage.estimate().then((estimate) => {
-      storageInfo = {
-        raw: estimate,
-        baked: {
-          usage: formatBytes(estimate.usage ?? 0),
-          quota: formatBytes(estimate.quota ?? 0),
-        },
-        storage_estimate: STORAGE_ESTIMATE.AVAILABLE,
-      };
-    });
+    const estimate = await navigator.storage.estimate();
+    storageInfo = {
+      raw: estimate,
+      baked: {
+        usage: formatBytes(estimate.usage ?? 0),
+        quota: formatBytes(estimate.quota ?? 0),
+      },
+      storage_estimate: STORAGE_ESTIMATE.AVAILABLE,
+    };
   }
 
   return storageInfo;
