@@ -52,11 +52,20 @@ const App = () => {
     })()
   },[])
 
+
+  const clearStorage = async () => {
+    await clearSiteData({ reload: true})
+
+    // to delete specific IndexDB
+    await clearSiteData({ indexDBName: "DBName", reload: true})
+
+  }
+
   return (
    <div>
     <h3>BROWSER: {BROWSER}</h3>
     <p>Storage Info: {storageInfo.baked.usage/storageInfo.baked.quota}</p>
-    <button onClick={clearSiteData}>Clear Site Data</button>
+    <button onClick={clearStorage}>Clear Site Data</button>
    </div>
   );
 };
