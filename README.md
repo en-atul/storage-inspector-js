@@ -43,7 +43,7 @@ import React from 'react';
 import { BROWSER, getStorageUsageAndQuota, clearSiteData } from 'storage-inspector-js';
 
 const App = () => {
-  const storageInfo = (async => await getStorageUsageAndQuota())()
+  const storageInfo = (async () => await getStorageUsageAndQuota())();
 
   return (
    <div>
