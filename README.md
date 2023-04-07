@@ -39,11 +39,18 @@
 
 ```js
 
-import React from 'react';
-import { BROWSER, getStorageUsageAndQuota, clearSiteData } from 'storage-inspector-js';
+import React, {useEffect} from 'react';
+import { BROWSER, getStorageUsageAndQuota, clearSiteData, STORAGE_INFO } from 'storage-inspector-js';
 
 const App = () => {
-  const storageInfo = (async () => await getStorageUsageAndQuota())();
+  const [storageInfo, setStorageInfo] = useState<STORAGE_INFO>()
+
+ useEffect(()=>{
+  (async()=>{
+     const res= await getStorageUsageAndQuota();
+     setStorageInfo(res)
+    })()
+  },[])
 
   return (
    <div>
