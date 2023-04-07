@@ -16,6 +16,15 @@ enum STORAGE_ESTIMATE {
   UNAVAILABLE = "unavailable",
 }
 
+type STORAGE_INFO = {
+  raw: StorageEstimate;
+  baked: {
+    usage: string;
+    quota: string;
+  };
+  storage_estimate: STORAGE_ESTIMATE;
+};
+
 /**
  *
  * @param bytes required
@@ -140,20 +149,8 @@ const clearSiteData = (indexDBName?: string, reload?: boolean) => {
  *
  * @description get website browser storage `Usage` & `Quota`,
  */
-const getStorageUsageAndQuota = async () => {
-  if ("storage" in navigator && "estimate" in navigator.storage) {
-    const res = await navigator.storage.estimate();
-    return {
-      raw: res,
-      baked: {
-        usage: formatBytes(res.usage ?? 0),
-        quota: formatBytes(res.quota ?? 0),
-      },
-      storage_estimate: STORAGE_ESTIMATE.AVAILABLE,
-    };
-  }
-
-  return {
+const getStorageUsageAndQuota = () => {
+  let storageInfo: STORAGE_INFO = {
     raw: {
       usage: 0,
       quota: 0,
@@ -164,6 +161,21 @@ const getStorageUsageAndQuota = async () => {
     },
     storage_estimate: STORAGE_ESTIMATE.UNAVAILABLE,
   };
+
+  if ("storage" in navigator && "estimate" in navigator.storage) {
+    navigator.storage.estimate().then((estimate) => {
+      storageInfo = {
+        raw: estimate,
+        baked: {
+          usage: formatBytes(estimate.usage ?? 0),
+          quota: formatBytes(estimate.quota ?? 0),
+        },
+        storage_estimate: STORAGE_ESTIMATE.AVAILABLE,
+      };
+    });
+  }
+
+  return storageInfo;
 };
 
 export {
