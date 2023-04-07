@@ -1,16 +1,31 @@
 {
   "name": "storage-inspector-js",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "clear site data, get storage usage & quota.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
-  "keywords": [],
-  "author": "atul <atkr5496@gmail.com> (https://atul.info/)",
+  "keywords": [
+    "Javascript Clear Site Data",
+    "Clear Site Data",
+    "Clear Browser Storage",
+    "IndexDB Storage",
+    "Session Storage",
+    "Cache Storage"
+  ],
+  "author": "atul",
   "license": "ISC",
   "devDependencies": {
     "typescript": "^5.0.3"
+  },
+  "bugs": {
+    "url": "https://github.com/atul15r/react-collapsible/issues"
+  },
+  "homepage": "https://github.com/atul15r/storage-inspector-js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atul15r/storage-inspector-js.git"
   }
 }
