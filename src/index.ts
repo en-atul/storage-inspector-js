@@ -45,7 +45,7 @@ function formatBytes(bytes: number, decimals = 2) {
 }
 
 function isBrave() {
-  if (window.navigator?.brave.isBrave.name == "isBrave") {
+  if (window.navigator?.brave?.isBrave?.name == "isBrave") {
     return true;
   } else {
     return false;
